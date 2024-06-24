@@ -1,23 +1,28 @@
 import path from "path";
 import webpack from "webpack";
 import { webpackBuildConfig } from "./config/webpack/webpackBuildConfig";
-import { BuildMode, BuildPaths } from "./config/webpack/types/config";
+import { BuildEnv, BuildMode, BuildPaths } from "./config/webpack/types/config";
 
-const mode = "development";
-const isDev = mode === "development";
 
-const paths : BuildPaths = {
-    entry: path.resolve(__dirname, 'src', 'index.ts'),
-    build: path.resolve(__dirname, 'build'),
-    html: path.resolve(__dirname, "public", "index.html")
-}
+//функция принимает аргументом переменные окружения
+export default (env : BuildEnv) => {
+    const mode : BuildMode = env.mode || "development";
+    const isDev = mode === "development";
 
-const config : webpack.Configuration = webpackBuildConfig(
-    {
-        mode,
-        paths,
-        isDev
+    const port = env.port || 3000;
+
+    const paths : BuildPaths = {
+        entry: path.resolve(__dirname, 'src', 'index.tsx'),
+        build: path.resolve(__dirname, 'build'),
+        html: path.resolve(__dirname, "public", "index.html")
     }
-);
 
-export default config;
+    return webpackBuildConfig(
+        {
+            mode,
+            paths,
+            isDev,
+            port
+        }
+    );
+}

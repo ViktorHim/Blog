@@ -3,6 +3,7 @@ import { BuildOptions } from "./types/config";
 import { webpackLoaders } from "./webpackLoaders";
 import { webpackPlugins } from "./webpackPlugins";
 import { webpackResolvers } from "./webpackResolvers";
+import { webpackDevServer } from "./webpackDevServer";
 
 export function webpackBuildConfig(options : BuildOptions) : Configuration {
 
@@ -12,10 +13,12 @@ export function webpackBuildConfig(options : BuildOptions) : Configuration {
     mode,
     entry: paths.entry,
     module: {
-        rules: webpackLoaders(),
+        rules: webpackLoaders(options),
     },
-    plugins: webpackPlugins(options),
+    plugins: webpackPlugins(paths),
     resolve: webpackResolvers(),
+    devtool: isDev ? 'inline-source-map' : undefined,
+    devServer: isDev ? webpackDevServer(options) : undefined,
     output: {
         filename: '[name].[contenthash].js',
         path: paths.build,
