@@ -9,5 +9,6 @@ export function webpackDevServer(options: BuildOptions) : DevServerConfiguration
     return {
           open: true,
           port,
+          historyApiFallback: true
     }
 }
