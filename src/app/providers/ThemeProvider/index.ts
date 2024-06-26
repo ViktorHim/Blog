@@ -1,5 +1,5 @@
-import { ThemeContext } from "./lib/ThemeContext";
-import { useTheme } from "./lib/useTheme";
+import { Theme, ThemeContext } from "./lib/ThemeContext";
 import ThemeProvider from "./ui/ThemeProvider";
+import { useTheme } from "./lib/useTheme";
 
-export {ThemeProvider, useTheme, ThemeContext};
+export {ThemeProvider, useTheme, ThemeContext, Theme};
