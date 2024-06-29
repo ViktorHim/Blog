@@ -3,16 +3,20 @@ import { classNames } from "shared/lib/classNames/classNames";
 import { AppRouter } from "app/providers/router";
 import "app/styles/index.scss";
 import { Navbar } from "widgets/Navbar";
-import { ThemeSwitcher } from "widgets/ThemeSwitcher";
+import { ContentWrapper } from "shared/ui/ContentWrapper/ContentWrapper";
+import { Suspense } from "react";
 
-export const App = () => {
+export const App = () => { 
     const {theme} = useTheme();
 
     return (
         <div className={classNames("app", {}, [theme])}>
-            <Navbar/>
-            <AppRouter/>
-            <ThemeSwitcher/>
+            <Suspense fallback="">
+                <Navbar/>
+                <ContentWrapper>
+                    <AppRouter/>
+                </ContentWrapper>
+            </Suspense>
         </div>
     );
 };
